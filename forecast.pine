@@ -1,0 +1,62 @@
+study("Sovren Forecast Tool")
+
+Period = input(title="Period Cycle", type=integer , defval=260)
+PrevisionBar = 100
+
+LastYear = close[Period]
+TwoYearsAgo = close [2 * Period + PrevisionBar]
+ThreeYearsAgo = close [3 * Period + PrevisionBar]
+FourYearsAgo = close [4 *Period + PrevisionBar]
+FiveYearsAgo = close [5 * Period + PrevisionBar]
+SixYearsAgo = close [6 * Period + PrevisionBar]
+SevenYearsAgo = close [7 * Period + PrevisionBar]
+EightYearsAgo = close [8 * Period + PrevisionBar]
+NineYearsAgo = close [9 * Period + PrevisionBar]
+TenYearsAgo = close [10 * Period + PrevisionBar]
+ElevenYearsAgo = close[11 * Period + PrevisionBar]
+TwelveYearsAgo = close[12 * Period + PrevisionBar]
+ThirteenYearsAgo = close[13 * Period + PrevisionBar]
+FourteenYearsAgo = close[14 * Period + PrevisionBar]
+FifteenYearsAgo = close[15 * Period + PrevisionBar]
+
+Offset1 = input(title="Offset 1", type=integer, defval=100)
+Offset2 = input(title="Offset 2", type=integer, defval=100)
+Offset3 = input(title="Offset 3", type=integer, defval=100)
+Offset4 = input(title="Offset 4", type=integer, defval=100)
+Offset5 = input(title="Offset 5", type=integer, defval=100)
+//Offset6 = input(title="Offset 6", type=integer, defval=70)
+//Offset7 = input(title="Offset 7", type=integer, defval=70)
+OffsetM5 = input(title="Offset M5", type=integer, defval=100)
+OffsetM7 = input(title="Offset M7", type=integer, defval=100)
+OffsetM10 = input(title="Offset M10", type=integer, defval=100)
+OffsetM15 = input(title="Offset M15", type=integer, defval=100)
+
+increment1 = input(title="Vertical Alignment 1", type=float, defval=1.1, step=0.01)
+increment2 = input(title="Vertical Alignment 2", type=float, defval=1.1, step=0.01)
+increment3 = input(title="Vertical Alignment 3", type=float, defval=1.1, step=0.01)
+increment4 = input(title="Vertical Alignment 4", type=float, defval=1.1, step=0.01)
+increment5 = input(title="Vertical Alignment 5", type=float, defval=1.1, step=0.01)
+incrementM5 = input(title="Vertical Alignment M5", type=float, defval=1.1, step=0.01)
+incrementM7 = input(title="Vertical Alignment M7", type=float, defval=1.1, step=0.01)
+incrementM10 = input(title="Vertical Alignment M10", type=float, defval=1.1, step=0.01)
+incrementM15 = input(title="Vertical Alignment M15", type=float, defval=1.1, step=0.01)
+
+avg10 = (LastYear + TwoYearsAgo + ThreeYearsAgo + FourYearsAgo + FiveYearsAgo + SixYearsAgo + SevenYearsAgo + EightYearsAgo + NineYearsAgo + TenYearsAgo) / 10
+avg7 = (LastYear + TwoYearsAgo + ThreeYearsAgo + FourYearsAgo + FiveYearsAgo + SixYearsAgo + SevenYearsAgo) / 7
+avg5 = (LastYear + TwoYearsAgo + ThreeYearsAgo + FourYearsAgo + FiveYearsAgo) / 5
+avg15 = (LastYear + TwoYearsAgo + ThreeYearsAgo + FourYearsAgo + FiveYearsAgo + SixYearsAgo + SevenYearsAgo + EightYearsAgo + NineYearsAgo + TenYearsAgo + ElevenYearsAgo + TwelveYearsAgo + ThirteenYearsAgo + FourteenYearsAgo + FifteenYearsAgo) / 15
+
+
+plot(LastYear * increment1, title="Last year", color=navy, offset=Offset1)
+plot(TwoYearsAgo * increment2, title="2 year ago", color=red, offset=Offset2)
+plot(ThreeYearsAgo * increment3, title="3 year ago", color=purple, offset=Offset3)
+plot(FourYearsAgo * increment4, title="4 year ago", color=blue, offset=Offset4)
+plot(FiveYearsAgo * increment5, title="5 year ago", color=orange, offset=Offset5)
+//plot(SixYearsAgo, title = "6 year ago", color = gray, offset = Offset6)
+//plot(SevenYearsAgo, title = "7 year ago", color = black, offset = Offset7)
+plot((avg5) * incrementM5, title="Average last 5 years", color=aqua, linewidth=1, offset=OffsetM5)
+plot((avg7) * incrementM7, title="Average last 7 years", color=fuchsia, linewidth=1, offset=OffsetM7)
+plot((avg10) * incrementM10, title="Average last 10 years", color=black, linewidth=1, offset=OffsetM10)
+plot((avg15) * incrementM15, title="Average last 15 years", color=maroon, linewidth=1, offset=OffsetM15)
+
+plot(close, title = "Actual Price", color = green, linewidth = 5)
